@@ -2,25 +2,8 @@ import 'dart:io';
 
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
-import 'package:shelf_router/shelf_router.dart';
 
-import 'utils/Handler.dart';
-
-// Configure routes.
-final _router = Router()
-  ..get('/', _rootHandler)
-  ..get('/echo/<message>', _echoHandler);
-
-Future<Response> _rootHandler(Request req) async {
-  final result =
-      await File('${Directory.current.path}/build/index.html').readAsString();
-  return Response.ok(result, headers: {'content-type': 'text/html'});
-}
-
-Response _echoHandler(Request request) {
-  final message = params(request, 'message');
-  return Response.ok('$message\n');
-}
+import 'utils/handler.dart';
 
 void main(List<String> args) async {
   // Use any available host or container IP (usually `0.0.0.0`).
